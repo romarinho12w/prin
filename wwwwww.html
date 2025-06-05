@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feliz Aniversário, Amor!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #ffe6f0;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #ff66a3;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #ffb3cc;
+      position: relative;
+      z-index: 2;
+    }
+
+    nav a {
+      padding: 1rem;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: #ff80bf;
+    }
+
+    section {
+      padding: 2rem;
+      display: none;
+      position: relative;
+      z-index: 2;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: #ff3399;
+      font-size: 24px;
+      animation: fall linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    #contador {
+      font-size: 1.8rem;
+      color: #e60073;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Feliz Aniversário, Meu Amor! 🎉💖</h1>
+  </header>
+
+  <nav>
+    <a href="#" onclick="showSection('inicio')">Início</a>
+    <a href="#" onclick="showSection('texto')">Texto</a>
+    <a href="#" onclick="showSection('historia')">Nossa História</a>
+  </nav>
+
+  <section id="inicio" class="active">
+    <div class="card">
+      <h2>Bem-vinda, minha linda! 🌸</h2>
+      <p>Hoje é um dia muito especial, o dia em que o mundo ficou mais bonito com a sua chegada. 💕</p>
+      <p>Prepare-se para se emocionar com algumas palavras que vêm direto do meu coração.</p>
+    </div>
+  </section>
+
+  <section id="texto">
+    <div class="card">
+      <h2>Minha declaração 💌</h2>
+      <p>Amor, neste dia tão especial, quero te lembrar do quanto você é incrível. 
+         Cada momento ao seu lado é uma dádiva, e cada sorriso seu ilumina o meu mundo. ✨</p>
+      <p>Desejo que todos os seus sonhos se realizem, e que a gente possa continuar escrevendo juntos essa linda história que é o nosso amor. 💞</p>
+      <p>Feliz aniversário! Te amo mais do que palavras podem dizer! ❤️🎂</p>
+    </div>
+  </section>
+
+  <section id="historia">
+    <div class="card">
+      <h2>Nossa História 💑</h2>
+      <p>Estamos juntos há:</p>
+      <div id="contador">Carregando...</div>
+      <p>Que cada segundo ao seu lado continue sendo mágico! 💖</p>
+    </div>
+  </section>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 3 + Math.random() * 2 + "s";
+      heart.style.fontSize = (16 + Math.random() * 24) + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 300);
+
+    // Contador ao vivo
+    function atualizarContador() {
+      const inicio = new Date("2025-01-12T00:00:00"); // <-- Altere aqui para a data real
+      const agora = new Date();
+
+      let totalSegundos = Math.floor((agora - inicio) / 1000);
+
+      const anos = Math.floor(totalSegundos / (365.25 * 24 * 3600));
+      totalSegundos %= Math.floor(365.25 * 24 * 3600);
+
+      const meses = Math.floor(totalSegundos / (30.44 * 24 * 3600));
+      totalSegundos %= Math.floor(30.44 * 24 * 3600);
+
+      const dias = Math.floor(totalSegundos / (24 * 3600));
+      totalSegundos %= 24 * 3600;
+
+      const horas = Math.floor(totalSegundos / 3600);
+      totalSegundos %= 3600;
+
+      const minutos = Math.floor(totalSegundos / 60);
+      const segundos = totalSegundos % 60;
+
+      const texto = `${anos} ano(s), ${meses} mês(es), ${dias} dia(s), ${horas}h ${minutos}m ${segundos}s`;
+      document.getElementById("contador").textContent = texto;
+    }
+
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+  </script>
+</body>
+</html>
